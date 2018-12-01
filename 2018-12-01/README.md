@@ -18,4 +18,4 @@
 
 - Workout for lists:
   [99 Haskell problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems)
-
+- A post covering mostly the same ground: https://www.schoolofhaskell.com/school/starting-with-haskell/basics-of-haskell/10_Error_Handling
