@@ -4,14 +4,14 @@
 
 - Began discussing ADTs
 - `Either` as a (kind of) sum type
-- Records: `NamedFieldPuns` pragma, pattern matching
+- Records: [`NamedFieldPuns`](https://limperg.de/ghc-extensions/#namedfieldpuns) pragma, pattern matching
 - Pattern matching with `case` keyword
 - Making a type for errors (`Error`)
 - De-sugaring `do` notation
 
 ## Try at home
 
-- Write tests for `readNumbers2`
+- Write tests for `readNumbers_do`; both property tests and unit tests would be good
 - Read about `Maybe` type
 
 ## References
