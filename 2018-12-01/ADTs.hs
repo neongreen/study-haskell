@@ -1,7 +1,7 @@
 {-# LANGUAGE NamedFieldPuns #-}  -- Enables bringing record fields into scope 
                                  -- with Record{a, b} instead of Record{a=a, b=b}
 
-module ADTs where
+module ADTs (readNumbers_case, readNumbers_do, Error(NotIntParseable)) where
 
 import Text.Read (readEither)   -- Good practice to import explicitly
 
@@ -22,7 +22,7 @@ distance Polar{r} = r  -- Note: here we are ignoring 'theta'.
 -- as "ADTs.Error".
 data Error = NotIntParseable {message :: String, value :: String}
            | OtherBadStuff {message :: String}
-           deriving Show
+           deriving (Show, Eq)
 
 -- | Parse two integers and fail if either is unparseable.
 --
