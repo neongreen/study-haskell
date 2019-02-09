@@ -1,0 +1,40 @@
+name:          study-haskell-redis
+version:       '0.1'
+
+dependencies:
+  - base
+  - unliftio
+  - unordered-containers
+  - hashable
+  - servant-server
+  - warp
+
+library:
+  exposed-modules:
+    - Lib
+  source-dirs:
+    - lib
+
+executable:
+  source-dirs:
+    - src
+  main: Main.hs
+  dependencies:
+    - study-haskell-redis
+
+tests:
+  spec:
+    source-dirs:
+      - test
+    main: Main.hs
+    dependencies:
+      - hspec
+      - hspec-wai
+      - hspec-wai-json
+      - aeson
+      - study-haskell-redis
+      - wai
+      - unliftio
+      - bytestring
+      - wai-extra
+      - http-types
