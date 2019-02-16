@@ -25,6 +25,10 @@ dependencies:
 - servant-lucid
 - lucid
 - warp
+- text
+- unliftio
+- directory
+- filepath
 
 library:
   source-dirs: src
