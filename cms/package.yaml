@@ -29,6 +29,8 @@ dependencies:
 - unliftio
 - directory
 - filepath
+- stache
+- yaml
 
 library:
   source-dirs: src

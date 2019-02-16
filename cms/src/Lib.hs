@@ -19,6 +19,9 @@ import Network.Wai.Handler.Warp as Warp
 import qualified Data.Text.IO as TIO
 import qualified Data.Text as T
 import Data.Text (Text)
+import qualified Data.Text.Lazy as TL
+import qualified Data.Yaml as Yaml
+import qualified Text.Mustache as Mustache
 
 import Data.Foldable
 import Data.String
@@ -37,17 +40,14 @@ app :: Application
 app = serve (Proxy @API) api
 
 type API =
-    "hello" :> Get '[HTML] (Html ())
+    Capture "page" Text :> Get '[HTML] (Html ())
 
 api :: Server API
-api = helloWorld
+api = renderPage
 
-helloWorld :: Handler (Html ())
-helloWorld = do
-    widget :: RawHtml <- liftIO $ readAsset "widget.html"
-    pure $ do
-        p_ "Widget goes below:"
-        toHtml widget
+renderPage :: Text -> Handler (Html ())
+renderPage page = do
+    liftIO $ toHtml <$> renderTemplate page
 
 ----------------------------------------------------------------------------
 -- Raw HTML
@@ -67,3 +67,12 @@ readAsset asset = do
 instance ToHtml RawHtml where
     toHtml = Lucid.toHtmlRaw . unRawHtml
     toHtmlRaw = Lucid.toHtmlRaw . unRawHtml
+
+-- | >>> renderTemplate "index"
+renderTemplate
+    :: Text         -- ^ Template name (without extension)
+    -> IO RawHtml
+renderTemplate name = do
+    template <- Mustache.compileMustacheDir (Mustache.PName name) "assets"
+    value <- Yaml.decodeFileThrow ("assets" </> T.unpack name <.> "yaml")
+    pure $ RawHtml . TL.toStrict $ Mustache.renderMustache template value
